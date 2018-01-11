@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "",
   "main": "dist/pluginsName.min.js",
+  "files": [
+    "src/**",
+    "dist/**",
+    "examples/**"
+  ],
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run serve",
