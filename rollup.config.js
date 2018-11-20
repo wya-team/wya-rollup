@@ -2,11 +2,11 @@ console.log(`NODE_ENV : ${process.env.NODE_ENV}`);
 const ENV_IS_DEV = process.env.NODE_ENV === 'development';
 // Rollup plugins
 import babel from 'rollup-plugin-babel';
-import eslint from 'rollup-plugin-eslint';
+import { eslint } from 'rollup-plugin-eslint';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
-import uglify from 'rollup-plugin-uglify';
+import { uglify } from 'rollup-plugin-uglify';
 import postcss from 'rollup-plugin-postcss';
 // dev server
 import serve from 'rollup-plugin-serve';
@@ -18,7 +18,7 @@ import cssnext from 'postcss-cssnext';
 import cssnano from 'cssnano';
 
 
-import babelrc from 'babelrc-rollup';
+// import babelrc from 'babelrc-rollup';
 
 const mainConfig = {
 	// 输入
@@ -44,6 +44,14 @@ const mainConfig = {
 			],
 			extensions: ['.css'],
 		}),
+		// 使用eslint
+		eslint({
+			exclude: [
+				'src/styles/**',
+			]
+		}),
+		// 使用babel
+		babel(),
 		// 使用amd模块引入，第三方模块支持
 		resolve({
 			jsnext: true,
@@ -52,14 +60,6 @@ const mainConfig = {
 		}),
 		// 使用amd模块引入
 		commonjs(),
-		// 使用eslint
-		eslint({
-			exclude: [
-				'src/styles/**',
-			]
-		}),
-		// 使用babel
-		babel(babelrc()),
 		// 提花全局字段ENV为....
 		replace({
 			exclude: 'node_modules/**',
